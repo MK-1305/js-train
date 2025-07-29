@@ -1,0 +1,134 @@
+<style>
+  .accordion-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .accordion-header {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .accordion-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+  }
+  .accordion-header svg{
+    stroke: white;
+  }
+  .accordion-header .minus-icon{
+    display: none;
+  }
+  .accordion-header.active .plus-icon{
+    display: none;
+  }
+  .accordion-header.active .minus-icon{
+    display: block;
+  }
+  .accordion-content {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+  }
+  .accordion-header.active + .accordion-content {
+    max-height: 500px;
+    padding: 20px 20px;
+  }
+  @media only screen and (max-width: 600px) {
+    .accordion-header {
+      padding: 10px;
+    }
+    .accordion-content {
+      padding: 0 10px;
+    }
+    .accordion-header.active + .accordion-content {
+      max-height: 500px;
+      padding: 10px 10px;
+    }
+  }
+</style>
+
+<div class="page-width">
+  <h2>よくある質問</h2>
+  <div class="accordion-wrapper">
+
+    <!-- アコーディオンアイテム1: 送料について -->
+    <div id="accordion-item-1" class="accordion-item">
+      <div id="accordion-header-1" class="accordion-header active">
+        送料はいくらになりますか。
+        <div class="accordion-icon">
+          <svg class="plus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+          <svg class="minus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="minus"><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+        </div>
+      </div>
+      <div id="accordion-content-1" class="accordion-content">
+        <p>
+          5,000円以上の購入で無料になります。<br>
+          5,000円未満の場合は、1,000円の送料がかかります。<br>
+          離島に関しては別途送料がかかる場合があります。
+        </p>
+      </div>
+    </div>
+
+    <!-- アコーディオンアイテム2: 発送日について -->
+    <div id="accordion-item-2" class="accordion-item">
+      <div id="accordion-header-2" class="accordion-header active">
+        発送日はいつになりますか。
+        <div class="accordion-icon">
+          <svg class="plus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+          <svg class="minus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="minus"><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+        </div>
+      </div>
+      <div id="accordion-content-2" class="accordion-content">
+        <p>
+          注文をいただいてから3営業日以内に発送いたします。<br>
+          発送日は、注文確定後にメールでご案内いたします。
+        </p>
+      </div>
+    </div>
+
+    <!-- アコーディオンアイテム3: 返品について -->
+    <div id="accordion-item-3" class="accordion-item">
+      <div id="accordion-header-3" class="accordion-header active">
+        返品はできますか。
+        <div class="accordion-icon">
+          <svg class="plus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+          <svg class="minus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="minus"><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+        </div>
+      </div>
+      <div id="accordion-content-3" class="accordion-content">
+        <p>
+          商品到着後、14日以内に返品が可能です。<br>
+          返品の際は、商品と返送袋をご用意ください。<br>
+          返送袋は、商品到着後にメールでご案内いたします。
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ここに JavaScript が入る予定です。
+</script>
+
+{% schema %}
+{
+  "name": "Accordion Section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Accordion Section"
+    }
+  ]
+}
+{% endschema %}
