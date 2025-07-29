@@ -21,27 +21,28 @@
     width: 30px;
     height: 30px;
   }
-  .accordion-header svg{
+  .accordion-header svg {
     stroke: white;
   }
-  .accordion-header .minus-icon{
+  .accordion-header .minus-icon {
     display: none;
   }
-  .accordion-header.active .plus-icon{
+  .accordion-header.active .plus-icon {
     display: none;
   }
-  .accordion-header.active .minus-icon{
+  .accordion-header.active .minus-icon {
     display: block;
   }
   .accordion-content {
     padding: 0 20px;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
+    transition: max-height 0.4s ease
+    , padding 0.4s ease;
   }
   .accordion-header.active + .accordion-content {
     max-height: 500px;
-    padding: 20px 20px;
+    padding: 20px;
   }
   @media only screen and (max-width: 600px) {
     .accordion-header {
@@ -52,7 +53,7 @@
     }
     .accordion-header.active + .accordion-content {
       max-height: 500px;
-      padding: 10px 10px;
+      padding: 10px;
     }
   }
 </style>
@@ -63,11 +64,54 @@
 
     <!-- アコーディオンアイテム1: 送料について -->
     <div id="accordion-item-1" class="accordion-item">
-      <div id="accordion-header-1" class="accordion-header active">
+      <div id="accordion-header-1" class="accordion-header">
         送料はいくらになりますか。
         <div class="accordion-icon">
-          <svg class="plus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
-          <svg class="minus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="minus"><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+          <svg
+            class="plus-icon"
+            viewBox="0 0 32 32"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                  stroke-width: 2px;
+                }
+              </style>
+            </defs><title/><g id="plus"><line
+                class="cls-1"
+                x1="16"
+                x2="16"
+                y1="7"
+                y2="25" /><line
+                class="cls-1"
+                x1="7"
+                x2="25"
+                y1="16"
+                y2="16" /></g>
+          </svg>
+          <svg
+            class="minus-icon"
+            viewBox="0 0 32 32"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                  stroke-width: 2px;
+                }
+              </style>
+            </defs><title/><g id="minus"><line
+                class="cls-1"
+                x1="7"
+                x2="25"
+                y1="16"
+                y2="16" /></g>
+          </svg>
         </div>
       </div>
       <div id="accordion-content-1" class="accordion-content">
@@ -81,11 +125,54 @@
 
     <!-- アコーディオンアイテム2: 発送日について -->
     <div id="accordion-item-2" class="accordion-item">
-      <div id="accordion-header-2" class="accordion-header active">
+      <div id="accordion-header-2" class="accordion-header">
         発送日はいつになりますか。
         <div class="accordion-icon">
-          <svg class="plus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
-          <svg class="minus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="minus"><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+          <svg
+            class="plus-icon"
+            viewBox="0 0 32 32"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                  stroke-width: 2px;
+                }
+              </style>
+            </defs><title/><g id="plus"><line
+                class="cls-1"
+                x1="16"
+                x2="16"
+                y1="7"
+                y2="25" /><line
+                class="cls-1"
+                x1="7"
+                x2="25"
+                y1="16"
+                y2="16" /></g>
+          </svg>
+          <svg
+            class="minus-icon"
+            viewBox="0 0 32 32"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                  stroke-width: 2px;
+                }
+              </style>
+            </defs><title/><g id="minus"><line
+                class="cls-1"
+                x1="7"
+                x2="25"
+                y1="16"
+                y2="16" /></g>
+          </svg>
         </div>
       </div>
       <div id="accordion-content-2" class="accordion-content">
@@ -98,11 +185,54 @@
 
     <!-- アコーディオンアイテム3: 返品について -->
     <div id="accordion-item-3" class="accordion-item">
-      <div id="accordion-header-3" class="accordion-header active">
+      <div id="accordion-header-3" class="accordion-header">
         返品はできますか。
         <div class="accordion-icon">
-          <svg class="plus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="plus"><line class="cls-1" x1="16" x2="16" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
-          <svg class="minus-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="minus"><line class="cls-1" x1="7" x2="25" y1="16" y2="16"/></g></svg>
+          <svg
+            class="plus-icon"
+            viewBox="0 0 32 32"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                  stroke-width: 2px;
+                }
+              </style>
+            </defs><title/><g id="plus"><line
+                class="cls-1"
+                x1="16"
+                x2="16"
+                y1="7"
+                y2="25" /><line
+                class="cls-1"
+                x1="7"
+                x2="25"
+                y1="16"
+                y2="16" /></g>
+          </svg>
+          <svg
+            class="minus-icon"
+            viewBox="0 0 32 32"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: none;
+                  stroke-linecap: round;
+                  stroke-linejoin: round;
+                  stroke-width: 2px;
+                }
+              </style>
+            </defs><title/><g id="minus"><line
+                class="cls-1"
+                x1="7"
+                x2="25"
+                y1="16"
+                y2="16" /></g>
+          </svg>
         </div>
       </div>
       <div id="accordion-content-3" class="accordion-content">
@@ -118,17 +248,67 @@
 </div>
 
 <script>
-  // ここに JavaScript が入る予定です。
+  window.addEventListener('load', function(){
+      
+    // 1個目の アコーディオン開閉処理
+    document.querySelector("#accordion-header-1").addEventListener('click', function(){
+      // ここにクリックされた時の処理をかく
+      if(document.querySelector("#accordion-header-1").classList.contains("active")){
+        // active クラスが既に存在している場合 = アコーディオンが開いている場合 → activeクラスを消去
+        document.querySelector("#accordion-header-1").classList.remove("active");
+      }else{
+        // active クラスが存在していない場合 = アコーディオンが閉じている場合 → activeクラスを追加
+        document.querySelector("#accordion-header-1").classList.add("active");
+      }
+    });
+
+    // 2個目の アコーディオン開閉処理
+    document.querySelector("#accordion-header-2").addEventListener('click', function(){
+      // ここにクリックされた時の処理をかく
+      if(document.querySelector("#accordion-header-2").classList.contains("active")){
+        // active クラスが既に存在している場合 = アコーディオンが開いている場合 → activeクラスを消去
+        document.querySelector("#accordion-header-2").classList.remove("active");
+      }else{
+        // active クラスが存在していない場合 = アコーディオンが閉じている場合 → activeクラスを追加
+        document.querySelector("#accordion-header-2").classList.add("active");
+      }
+    });
+
+    // 3個目の アコーディオン開閉処理
+    document.querySelector("#accordion-header-3").addEventListener('click', function(){
+      // ここにクリックされた時の処理をかく
+      if(document.querySelector("#accordion-header-3").classList.contains("active")){
+        // active クラスが既に存在している場合 = アコーディオンが開いている場合 → activeクラスを消去
+        document.querySelector("#accordion-header-3").classList.remove("active");
+      }else{
+        // active クラスが存在していない場合 = アコーディオンが閉じている場合 → activeクラスを追加
+        document.querySelector("#accordion-header-3").classList.add("active");
+      }
+    });
+
+  });
 </script>
 
+{% comment %} リファクタリング {% endcomment %}
+{% comment %} <script>
+    window.addEventListener('load', function(){
+      // アコーディオン開閉処理
+      document.querySelectorAll(".accordion-header").forEach(function(element){
+        element.addEventListener('click', function(){
+          element.classList.toggle("active");
+        });
+      });
+    });
+</script> {% endcomment %}
+
 {% schema %}
-{
-  "name": "Accordion Section",
-  "settings": [],
-  "presets": [
-    {
-      "name": "Accordion Section"
-    }
-  ]
-}
+  {
+    "name": "Accordion Section",
+    "settings": [],
+    "presets": [
+      {
+        "name": "Accordion Section"
+      }
+    ]
+  }
 {% endschema %}
