@@ -2,95 +2,126 @@
 
 <div class="c_tab-section">
   <div class="page-width tab-buttons-wrapper">
-    <div class="tab-buttons">
+    <div
+      class="tab-buttons"
+      role="tablist"
+      aria-label="カテゴリー">
       <button
+        type="button"
         class="active"
-        data-tab="necklace"
-        id="btn-necklace">ネックレス</button>
-      <button data-tab="ring" id="btn-ring">リング</button>
-    </div>
-
-    <div
-      class="tab-content"
-      data-tab="necklace"
-      id="content-necklace">
-      <div class="products">
-        {% for product in collections.necklace.products %}
-          <div class="product">
-            <img
-              src="{{ product.featured_media | image_url: width: 500 }}"
-              width="500"
-              height="500">
-            <p>{{ product.title }}</p>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    <div
-      class="tab-content"
-      data-tab="ring"
-      id="content-ring"
-      style="display: none;">
-      <div class="products">
-        {% for product in collections.ring.products %}
-          <div class="product">
-            <img
-              src="{{ product.featured_media | image_url: width: 500 }}"
-              width="500"
-              height="500">
-            <p>{{ product.title }}</p>
-          </div>
-        {% endfor %}
-      </div>
-
-      <div
-        class="tab-content"
+        data-tab="logo-T"
+        id="btn-logo-T"
+        role="tab"
+        aria-selected="true">ロゴ</button>
+      <button
+        type="button"
+        data-tab="ilust-T"
+        id="btn-ilust-T"
+        role="tab"
+        aria-selected="false">イラスト</button>
+      <button
+        type="button"
         data-tab="other"
-        id="content-other"
-        style="display: none;">
-        <div class="products">
-          {% for product in collections.other.products %}
-            <div class="product">
-              <img
-                src="{{ product.featured_media | image_url: width: 500 }}"
-                width="500"
-                height="500">
-              <p>{{ product.title }}</p>
-            </div>
-          {% endfor %}
-        </div>
+        id="btn-other"
+        role="tab"
+        aria-selected="false">その他</button>
+    </div>
+
+    <!-- ロゴ -->
+    <div
+      class="tab-content"
+      data-tab="logo-T"
+      id="content-logo-T"
+      role="tabpanel">
+      <div class="products">
+        {% for product in collections.logo-t.products %}
+          <div class="product">
+            <img
+              src="{{ product.featured_media | image_url: width: 500 }}"
+              width="500"
+              height="500"
+              alt="{{ product.title | escape }}">
+            <p>{{ product.title }}</p>
+          </div>
+        {% endfor %}
       </div>
+    </div>
+
+    <!-- イラスト -->
+    <div
+      class="tab-content"
+      data-tab="ilust-T"
+      id="content-ilust-T"
+      role="tabpanel"
+      hidden>
+      <div class="products">
+        {% for product in collections.ilust-t.products %}
+          <div class="product">
+            <img
+              src="{{ product.featured_media | image_url: width: 500 }}"
+              width="500"
+              height="500"
+              alt="{{ product.title | escape }}">
+            <p>{{ product.title }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- その他（※ ilust の外に出すのがポイント） -->
+    <div
+      class="tab-content"
+      data-tab="other"
+      id="content-other"
+      role="tabpanel"
+      hidden>
+      <div class="products">
+        {% for product in collections.other.products %}
+          <div class="product">
+            <img
+              src="{{ product.featured_media | image_url: width: 500 }}"
+              width="500"
+              height="500"
+              alt="{{ product.title | escape }}">
+            <p>{{ product.title }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
-  window.addEventListener('load', function(){
-    // ネックレスボタンをクリックした際
-    document.querySelector("#btn-necklace").addEventListener("click", function(){
-      // クリックされた時の処理
-      // ネックレスコンテンツを表示
-      document.querySelector("#content-necklace").style.display = "block";
-      // リングコンテンツを非表示
-      document.querySelector("#content-ring").style.display = "none";
-      // ネックレスボタンをアクティブにする
-      document.querySelector("#btn-necklace").classList.add("active");
-      // リングボタンを非アクティブにする
-      document.querySelector("#btn-ring").classList.remove("active");
+  document.addEventListener('DOMContentLoaded', function () {
+    const wrapper = document.querySelector('.tab-buttons');
+    const buttons = wrapper.querySelectorAll('button[data-tab]');
+    const panels  = document.querySelectorAll('.tab-content');
+
+    function showTab(tab) {
+      // パネル切替
+      panels.forEach(panel => {
+        const isTarget = panel.dataset.tab === tab;
+        panel.hidden = !isTarget;               // hiddenで表示/非表示
+      });
+      // ボタンのactiveとaria
+      buttons.forEach(btn => {
+        const isActive = btn.dataset.tab === tab;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+    }
+
+    // クリック（イベント委譲）
+    wrapper.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-tab]');
+      if (!btn) return;
+      showTab(btn.dataset.tab);
     });
 
-    // リングボタンをクリックした際
-    document.querySelector("#btn-ring").addEventListener("click", function(){
-      // クリックされた時の処理
-      // リングコンテンツを表示
-      document.querySelector("#content-necklace").style.display = "none";
-      // リングコンテンツを表示
-      document.querySelector("#content-ring").style.display = "block";
-      // リングボタンをアクティブにする
-      document.querySelector("#btn-ring").classList.add("active");
-      // ネックレスボタンを非アクティブにする
-      document.querySelector("#btn-necklace").classList.remove("active");
-    });
+    // 初期表示（.activeのボタン or 先頭）
+    const initial = wrapper.querySelector('button.active')?.dataset.tab || buttons[0]?.dataset.tab;
+    if (initial) showTab(initial);
   });
 </script>
 
@@ -100,7 +131,7 @@
     "settings": [],
     "presets": [
       {
-        "name": "カスタムタブセクション",
+        "name": "カスタムタブセクション"
       }
     ]
   }

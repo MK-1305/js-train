@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -14,7 +23,7 @@
           "type": "buttons",
           "settings": {
             "button_label_1": "Shop all",
-            "button_link_1": "shopify:\/\/collections\/all",
+            "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
             "button_link_2": "",
@@ -26,50 +35,41 @@
         "heading",
         "button"
       ],
+      "disabled": true,
       "settings": {
         "image_overlay_opacity": 40,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
         "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
+        "show_text_box": false,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
         "show_text_below": false
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "c_parallax_wJKEdx": {
+      "type": "c_parallax",
+      "name": "カスタムパララックス",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "video": "shopify://files/videos/今夜は(修正版) 2.MP4",
+        "video_sp": "shopify://files/videos/今夜は(修正版) 2.MP4",
+        "image_overlay": "shopify://shop_images/1_5372b738-110b-49d9-ada2-b5fead0c1ce0.png",
+        "image_overlay_sp": "shopify://shop_images/SP_c3d5275f-a6be-47c5-8d6e-aba7cc6a3975.png",
+        "image_decoration": "shopify://shop_images/1_f4dc820c-dceb-4bc3-b577-8e1f9312538f.png",
+        "textarea": ""
       }
+    },
+    "c_tab_section_8XUgdX": {
+      "type": "c_tab-section",
+      "name": "カスタムタブセクション",
+      "settings": {}
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "c_parallax_wJKEdx",
+    "c_tab_section_8XUgdX"
   ]
 }

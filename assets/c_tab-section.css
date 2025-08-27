@@ -19,7 +19,7 @@
   }
   .tab-content .products {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-top: 20px;
   }
   .tab-content .products .product {
