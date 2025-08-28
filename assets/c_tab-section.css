@@ -33,3 +33,40 @@
   .tab-content .products .product p {
     text-align: center;
   }
+
+  .products .product {
+    display: block;
+    width: 30%;                 /* 既存の幅指定をそのまま使うなら */
+    text-decoration: none;
+    color: inherit;
+  }
+  .products .product img { width: 100%; height: auto; object-fit: contain; }
+  .products { display: flex; justify-content: space-between; gap: 16px; }
+  @media (max-width: 750px) {
+    .products { flex-wrap: wrap; }
+    .products .product { width: 48%; }
+  }
+
+
+  /* モバイルで2列のグリッドに切り替え */
+@media (max-width: 750px) {
+  .tab-content .products {
+    /* 既存の flex を無効化 */
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;               /* お好みで */
+    justify-content: initial;/* flexの指定をリセット */
+  }
+  .tab-content .products .product {
+    /* 既存の 30% / 48% 指定を無効化 */
+    width: auto !important;
+    display: block;          /* <a>をカード扱い */
+    text-decoration: none;
+    color: inherit;
+  }
+  .tab-content .products .product img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}

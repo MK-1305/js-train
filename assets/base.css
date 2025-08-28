@@ -75,6 +75,23 @@
 }
 
 /* base */
+/* 横スクロールの一時停止（対応の広い hidden を先に、clip を上書き） */
+html, body { overflow-x: hidden; }
+@supports (overflow-x: clip) {
+  html, body { overflow-x: clip; } /* iOS/Safari対策としても有効 */
+}
+
+/* 画像・動画・埋め込みのはみ出し抑止 */
+img, video, svg, iframe { max-width: 100%; height: auto; }
+
+/* Flex/Grid 子要素のはみ出し抑止（長文や広い要素で出やすい） */
+*, *::before, *::after { box-sizing: border-box; }
+[class*="flex"], .flex, .grid { min-width: 0; }
+[class*="flex"] > *, .flex > *, .grid > * { min-width: 0; }
+
+/* 100vw が原因のはみ出しを暫定で吸収（本当は元CSSの幅指定を直すのが理想） */
+[style*="100vw"] { width: 100% !important; }
+
 
 .page-width {
   max-width: var(--page-width);

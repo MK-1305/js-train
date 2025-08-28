@@ -34,20 +34,28 @@
       id="content-logo-T"
       role="tabpanel">
       <div class="products">
-        {% for product in collections.logo-t.products %}
-          <div class="product">
+        {% for p in collections['logo-t'].products %}
+          {% assign suzuri = p.metafields.custom.suzuri_url %}
+          <a
+            class="product"
+            href="{{ suzuri | default: p.url }}"
+            {% if suzuri != blank %}
+            target="_blank"
+            rel="noopener"
+            {% endif %}>
             <img
-              src="{{ product.featured_media | image_url: width: 500 }}"
+              src="{{ p.featured_media | image_url: width: 500 }}"
               width="500"
               height="500"
-              alt="{{ product.title | escape }}">
-            <p>{{ product.title }}</p>
-          </div>
+              alt="{{ p.title | escape }}"
+              loading="lazy">
+            <p>{{ p.title }}</p>
+          </a>
         {% endfor %}
       </div>
     </div>
 
-    <!-- イラスト -->
+
     <div
       class="tab-content"
       data-tab="ilust-T"
@@ -55,15 +63,23 @@
       role="tabpanel"
       hidden>
       <div class="products">
-        {% for product in collections.ilust-t.products %}
-          <div class="product">
+        {% for p in collections['ilust-t'].products %}
+          {% assign suzuri = p.metafields.custom.suzuri_url %}
+          <a
+            class="product external"
+            href="{{ suzuri | default: p.url }}"
+            {% if suzuri != blank %}
+            target="_blank"
+            rel="noopener"
+            {% endif %}>
             <img
-              src="{{ product.featured_media | image_url: width: 500 }}"
+              src="{{ p.featured_media | image_url: width: 500 }}"
               width="500"
               height="500"
-              alt="{{ product.title | escape }}">
-            <p>{{ product.title }}</p>
-          </div>
+              alt="{{ p.title | escape }}"
+              loading="lazy">
+            <p>{{ p.title }}</p>
+          </a>
         {% endfor %}
       </div>
     </div>
@@ -76,18 +92,27 @@
       role="tabpanel"
       hidden>
       <div class="products">
-        {% for product in collections.other.products %}
-          <div class="product">
+        {% for p in collections.other.products %}
+          {% assign suzuri = p.metafields.custom.suzuri_url %}
+          <a
+            class="product external"
+            href="{{ suzuri | default: p.url }}"
+            {% if suzuri != blank %}
+            target="_blank"
+            rel="noopener"
+            {% endif %}>
             <img
-              src="{{ product.featured_media | image_url: width: 500 }}"
+              src="{{ p.featured_media | image_url: width: 500 }}"
               width="500"
               height="500"
-              alt="{{ product.title | escape }}">
-            <p>{{ product.title }}</p>
-          </div>
+              alt="{{ p.title | escape }}"
+              loading="lazy">
+            <p>{{ p.title }}</p>
+          </a>
         {% endfor %}
       </div>
     </div>
+
 
   </div>
 </div>
