@@ -1,9 +1,8 @@
 {% comment %}
-  Section: 曲紹介（サムネ9枚3列 / ホバーで右にYouTubeプレビュー / モバイルは上部に表示）
-  - 管理画面：各ブロックで「サムネ画像」と「YouTube URL（YouTubeのみ）」を設定
-  - PC：サムネにホバー/フォーカス/クリックで右のプレビューが切替
-  - SP（≤750px）：プレビューがサムネの上に表示、タップで切替
-  - プレイヤーは youtube-nocookie を使用
+  Section: 曲紹介（PC=3×3グリッド＋ホバーで右プレビュー / SP=動画上＋サムネ横スライド）
+  - ブロック最大9件
+  - SP（≤750px）はサムネが横スクロール（scroll-snap）でスワイプ移動
+  - YouTubeは youtube-nocookie を使用
 {% endcomment %}
 
 <section class="section-{{ section.id }}-padding music-intro color-{{ section.settings.color_scheme }}">
@@ -33,71 +32,56 @@
     gap: var(--gap);
     align-items: start;
   }
-  @media (max-width: 750px){
-    .music-intro .mi-wrap{
-      grid-template-areas: "preview" "thumbs";
-      grid-template-columns: 1fr;
-    }
-  }
-
   /* プレビュー */
-  .music-intro .mi-preview{
-    grid-area: preview;
-    position: sticky;
-    top: clamp(8px, 2vh, 24px); /* 長いページでも追従しやすく */
-  }
-  .music-intro .mi-player{
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: #000;
-    border-radius: 16px;
-    overflow: hidden;
-  }
-  .music-intro .mi-player iframe{
-    position:absolute; inset:0; width:100%; height:100%;
-    border:0;
-  }
+  .music-intro .mi-preview{ grid-area: preview; position: sticky; top: clamp(8px, 2vh, 24px); }
+  .music-intro .mi-player{ position: relative; width: 100%; aspect-ratio: 16/9; background:#000; border-radius:16px; overflow:hidden; }
+  .music-intro .mi-player iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
 
-  /* サムネグリッド：3列 */
+  /* PCのサムネ：3列グリッド */
   .music-intro .mi-thumbs{
     grid-area: thumbs;
     display: grid;
     grid-template-columns: repeat(3, minmax(0,1fr));
     gap: var(--gap);
   }
+
+  /* サムネ共通 */
+  .music-intro .mi-thumb{
+    appearance:none; border:0; padding:0; margin:0;
+    display:block; width:100%; cursor:pointer; background:transparent;
+    border-radius: var(--thumb-radius); overflow:hidden; position:relative;
+  }
+  .music-intro .mi-thumb:focus-visible{ outline:3px solid var(--accent); outline-offset:2px; }
+  .music-intro .mi-thumb .mi-thumb-img{ width:100%; height:auto; display:block; aspect-ratio:1/1; object-fit:cover; transform:translateZ(0); }
+  .music-intro .mi-thumb .mi-thumb-label{
+    position:absolute; left:8px; bottom:8px; background:rgba(0,0,0,.55); color:#fff;
+    font-size:12px; line-height:1; padding:6px 8px; border-radius:999px; max-width:90%;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .music-intro .mi-thumb.is-active::after{ content:""; position:absolute; inset:0; box-shadow: inset 0 0 0 3px var(--accent); border-radius: var(--thumb-radius); }
+
+  /* —— スマホ（≤750px）だけ：縦並び → 動画上 + サムネ横スライド —— */
   @media (max-width: 750px){
+    .music-intro .mi-wrap{ grid-template-areas: "preview" "thumbs"; grid-template-columns:1fr; gap:12px; }
+
+    /* 横スライドのレール化（スワイプ可能） */
     .music-intro .mi-thumbs{
-      grid-template-columns: repeat(3, minmax(0,1fr)); /* 指定どおりSPでも3列 */
-      gap: 12px;
+      display:flex; gap:12px;
+      overflow-x:auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      padding-bottom: 6px;
+    }
+    .music-intro .mi-thumbs::-webkit-scrollbar{ display:none; }
+
+    /* 1画面に3枚見える幅（ギャップ2つを差し引いて等分） */
+    .music-intro .mi-thumb{
+      flex: 0 0 calc((100% - 2*12px) / 3);
+      scroll-snap-align: start;
     }
   }
 
-  /* サムネボタン */
-  .music-intro .mi-thumb{
-    appearance: none; border: 0; padding: 0; margin: 0;
-    display:block; width:100%; cursor:pointer; background: transparent;
-    border-radius: var(--thumb-radius); overflow: hidden; position: relative;
-  }
-  .music-intro .mi-thumb:focus-visible{
-    outline: 3px solid var(--accent);
-    outline-offset: 2px;
-  }
-  .music-intro .mi-thumb .mi-thumb-img{
-    width: 100%; height: auto; display:block; aspect-ratio: 1 / 1; object-fit: cover;
-    transform: translateZ(0);
-  }
-  .music-intro .mi-thumb .mi-thumb-label{
-    position:absolute; left:8px; bottom:8px;
-    background: rgba(0,0,0,.55); color:#fff; font-size: 12px; line-height:1;
-    padding:6px 8px; border-radius: 999px; max-width: 90%; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;
-  }
-  .music-intro .mi-thumb.is-active::after{
-    content:""; position:absolute; inset:0; box-shadow: inset 0 0 0 3px var(--accent);
-    border-radius: var(--thumb-radius);
-  }
-
-  /* 右余白対策（全体の横はみ出しを抑止）*/
+  /* 横はみ出しの保険（任意） */
   html, body { overflow-x: hidden; }
   @supports (overflow-x: clip){ html, body { overflow-x: clip; } }
   {% endstyle %}
@@ -123,7 +107,7 @@
         </div>
       </div>
 
-      <!-- サムネ 3列（最大9件） -->
+      <!-- サムネ -->
       <div class="mi-thumbs">
         {%- assign count = 0 -%}
         {%- for block in section.blocks -%}
@@ -143,7 +127,7 @@
                   {{ block.settings.thumbnail | image_url: width: 300 }} 300w,
                   {{ block.settings.thumbnail | image_url: width: 600 }} 600w,
                   {{ block.settings.thumbnail | image_url: width: 900 }} 900w"
-                sizes="(max-width: 750px) 30vw, 20vw"
+                sizes="(max-width: 750px) 33vw, 20vw"
                 width="600" height="600"
                 alt="{{ block.settings.title | default: 'サムネ' | escape }}">
               {%- if block.settings.title != blank -%}
@@ -176,14 +160,21 @@
         current = id;
         frame.src = embed(id, autoplay);
         thumbs.forEach(t => t.classList.toggle('is-active', t === btn));
+
+        /* SP時：選択したサムネを中央付近にスクロール（体験向上） */
+        if (window.matchMedia('(max-width: 750px)').matches) {
+          btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
       }
 
-      // 初期選択：最初のサムネ
+      /* 初期選択：先頭 */
       select(thumbs[0], false);
 
-      // PC: hover / keyboard focus、SP: tap/click で切替
+      /* PC: hover/focus, SP: tap/click */
       thumbs.forEach(btn => {
-        btn.addEventListener('mouseenter', () => { if(window.matchMedia('(hover: hover)').matches) select(btn, true); });
+        btn.addEventListener('mouseenter', () => {
+          if (window.matchMedia('(hover: hover)').matches) select(btn, true);
+        });
         btn.addEventListener('focus', () => select(btn, false));
         btn.addEventListener('click', () => select(btn, true));
       });
@@ -198,7 +189,7 @@
 
 {% schema %}
 {
-  "name": "曲紹介（YouTubeプレビュー）",
+  "name": "曲紹介（YouTubeプレビュー：SPスライド）",
   "max_blocks": 9,
   "settings": [
     { "type": "text", "id": "heading", "label": "見出し", "default": "曲紹介" },
@@ -259,7 +250,7 @@
     }
   ],
   "presets": [
-    { "name": "曲紹介（YouTubeプレビュー）" }
+    { "name": "曲紹介（YouTubeプレビュー：SPスライド）" }
   ]
 }
 {% endschema %}
