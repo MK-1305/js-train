@@ -92,12 +92,66 @@
             "youtube": "https://youtu.be/zH-FhlX83OA",
             "title": ""
           }
+        },
+        "video_item_WXy7CU": {
+          "type": "video_item",
+          "settings": {
+            "thumbnail": "shopify://shop_images/3_hi.png",
+            "youtube": "https://youtu.be/M5EhjSca5_Q",
+            "title": ""
+          }
+        },
+        "video_item_jGYU9A": {
+          "type": "video_item",
+          "settings": {
+            "thumbnail": "shopify://shop_images/1ede9be9513f9e4c550ad895d42953e9.png",
+            "youtube": "https://youtu.be/o4hEaQ1VMt0",
+            "title": ""
+          }
+        },
+        "video_item_PgLAbW": {
+          "type": "video_item",
+          "settings": {
+            "thumbnail": "shopify://shop_images/U_1F600.png",
+            "youtube": "https://youtu.be/m-qZHoKbUGw",
+            "title": ""
+          }
+        },
+        "video_item_8c4c6J": {
+          "type": "video_item",
+          "settings": {
+            "thumbnail": "shopify://shop_images/e934cf39f096614c4f7b9a34b7fdb686.png",
+            "youtube": "https://youtu.be/zw_v92UVgkc",
+            "title": ""
+          }
+        },
+        "video_item_yUKiAi": {
+          "type": "video_item",
+          "settings": {
+            "thumbnail": "shopify://shop_images/e6737696fb73fa027d27833e9bf46c89.png",
+            "youtube": "https://youtu.be/xmJdZMyfBPM",
+            "title": ""
+          }
+        },
+        "video_item_33R98R": {
+          "type": "video_item",
+          "settings": {
+            "thumbnail": "shopify://shop_images/1ea1f0f05a50235a5f454075506737cf.png",
+            "youtube": "https://youtu.be/OXynY6NxqUQ",
+            "title": ""
+          }
         }
       },
       "block_order": [
         "video_item_acFacX",
         "video_item_ELf8ie",
-        "video_item_Nd8Cxp"
+        "video_item_Nd8Cxp",
+        "video_item_WXy7CU",
+        "video_item_jGYU9A",
+        "video_item_PgLAbW",
+        "video_item_8c4c6J",
+        "video_item_yUKiAi",
+        "video_item_33R98R"
       ],
       "name": "曲紹介（YouTubeプレビュー）",
       "settings": {
