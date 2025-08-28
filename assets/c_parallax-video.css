@@ -7,11 +7,23 @@
 .c_parallax-overlay {
   position: relative;
   z-index: 1;
+  margin-bottom: 100px;
 }
 
 .c_parallax-overlay__image {
   position: absolute;
-  /* inset: 0; */
+  inset: 0;
+}
+
+.c_parallax-overlay__image .c_image {
+    margin-top: 10rem;
+  }
+
+@media screen and (max-width: 750px) {
+  .c_parallax-overlay__image .c_image {
+    width: 100rem;
+    height: auto;
+  }
 }
 
 .c_parallax-section {
@@ -51,12 +63,13 @@
 
 .c_parallax__decoration-image {
   aspect-ratio: 1;
-  max-width: 230px;
+  height: 80rem;
 }
 
 @media screen and (max-width: 750px) {
   .c_parallax__decoration-image {
-    max-width: 180px;
+    width: 80rem;
+    height: 10rem;
   }
 }
 
@@ -65,7 +78,17 @@
   width: auto;
   height: auto;
   max-width: 100%;
+  margin-top: 300px;
 }
+
+@media screen and (max-width: 750px) {
+  .c_parallax__decoration-image .c_image {
+    width: 1980px;
+    height: auto;
+    margin-top: -300px;
+  }
+}
+
 
 .c_parallax__decoration-text {
   color: #fffbf7;

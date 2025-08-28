@@ -50,7 +50,7 @@
       }
     },
     "c_parallax_wJKEdx": {
-      "type": "c_parallax",
+      "type": "c_parallax-video",
       "name": "カスタムパララックス",
       "settings": {
         "video": "shopify://files/videos/今夜は(修正版) 2.MP4",
@@ -65,11 +65,55 @@
       "type": "c_tab-section",
       "name": "カスタムタブセクション",
       "settings": {}
+    },
+    "c_music_intro_PEMeE9": {
+      "type": "c_music-intro",
+      "blocks": {
+        "video_item_acFacX": {
+          "type": "video_item",
+          "settings": {
+            "thumbnail": "shopify://shop_images/2520_x_2992_px.png",
+            "youtube": "https://youtu.be/Eg5jnhnM5kU",
+            "title": ""
+          }
+        },
+        "video_item_ELf8ie": {
+          "type": "video_item",
+          "settings": {
+            "thumbnail": "shopify://shop_images/4e8013a0b38ca92496eb3c8c9292eca5.png",
+            "youtube": "https://youtu.be/OBHwEOoa36g",
+            "title": ""
+          }
+        },
+        "video_item_Nd8Cxp": {
+          "type": "video_item",
+          "settings": {
+            "thumbnail": "shopify://shop_images/8283715b4522608f879eb7e66da124b1.png",
+            "youtube": "https://youtu.be/zH-FhlX83OA",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_item_acFacX",
+        "video_item_ELf8ie",
+        "video_item_Nd8Cxp"
+      ],
+      "name": "曲紹介（YouTubeプレビュー）",
+      "settings": {
+        "heading": "MUSIC",
+        "color_scheme": "scheme-4",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "padding_top_sp": 64,
+        "padding_bottom_sp": 64
+      }
     }
   },
   "order": [
     "image_banner",
     "c_parallax_wJKEdx",
-    "c_tab_section_8XUgdX"
+    "c_tab_section_8XUgdX",
+    "c_music_intro_PEMeE9"
   ]
 }
