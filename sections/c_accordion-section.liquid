@@ -1,0 +1,203 @@
+{% comment %}
+  Section: Accordion（管理画面から項目追加・編集可）
+  - ブロックで「質問（見出し）」と「回答（リッチテキスト）」を設定
+  - プラス/マイナスアイコン、アコーディオンの単一開閉/複数開閉を設定で選択可
+  - 初期オープン：ブロック単位 or 「最初の1つだけ開く」
+{% endcomment %}
+
+<section class="section-{{ section.id }} accordion-section color-{{ section.settings.color_scheme }}">
+  {% style %}
+  .section-{{ section.id }}{
+    --acc-gap: {{ section.settings.gap | default: 10 }}px;
+    --acc-radius: {{ section.settings.radius | default: 8 }}px;
+    --acc-header-bg: {{ section.settings.header_bg | default: '#000000' }};
+    --acc-header-fg: {{ section.settings.header_fg | default: '#ffffff' }};
+    --acc-icon-stroke: {{ section.settings.icon_color | default: section.settings.header_fg | default: '#ffffff' }};
+    --acc-hpad: 20px;
+    --acc-vpad: 20px;
+    --acc-speed: 0.35s;
+  }
+  @media (max-width:600px){
+    .section-{{ section.id }}{ --acc-hpad: 10px; --acc-vpad: 10px; }
+  }
+
+  .section-{{ section.id }} .acc-wrap{ display:flex; flex-direction:column; gap:var(--acc-gap); }
+
+  .section-{{ section.id }} .acc-item{ border-radius: var(--acc-radius); overflow: hidden; background: transparent; }
+
+  .section-{{ section.id }} .acc-header{
+    width:100%;
+    background: var(--acc-header-bg);
+    color: var(--acc-header-fg);
+    padding: var(--acc-vpad) var(--acc-hpad);
+    display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer;
+    transition: background var(--acc-speed), color var(--acc-speed), opacity var(--acc-speed);
+    border:0; appearance:none; text-align:left;
+  }
+  .section-{{ section.id }} .acc-title{ font: inherit; font-weight: 600; }
+  .section-{{ section.id }} .acc-icon{ display:flex; align-items:center; justify-content:center; width:30px; height:30px; margin-left:12px; flex: 0 0 30px; }
+  .section-{{ section.id }} .acc-icon svg{
+    width: 22px; height: 22px; stroke: var(--acc-icon-stroke); fill: none;
+    stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;
+  }
+  /* aria-expanded でプラス/マイナスを切替 */
+  .section-{{ section.id }} .acc-header[aria-expanded="true"] .icon-plus{ display:none; }
+  .section-{{ section.id }} .acc-header[aria-expanded="false"] .icon-minus{ display:none; }
+
+  .section-{{ section.id }} .acc-panel{
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 var(--acc-hpad);
+    transition: max-height var(--acc-speed) ease, padding var(--acc-speed) ease;
+    background: transparent;
+  }
+  .section-{{ section.id }} .acc-panel.is-open{
+    padding: var(--acc-vpad) var(--acc-hpad);
+  }
+  .section-{{ section.id }} .acc-panel > *:first-child{ margin-top: 0; }
+  .section-{{ section.id }} .acc-panel > *:last-child{ margin-bottom: 0; }
+  {% endstyle %}
+
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="acc-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="acc-wrap" id="accordion-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'item' -%}
+          <div class="acc-item" {{ block.shopify_attributes }}>
+            <button
+              type="button"
+              class="acc-header"
+              id="acc-header-{{ block.id }}"
+              aria-expanded="false"
+              aria-controls="acc-panel-{{ block.id }}"
+              data-default-open="{{ block.settings.default_open }}"
+            >
+              <span class="acc-title">{{ block.settings.title | escape }}</span>
+              <span class="acc-icon" aria-hidden="true">
+                <svg class="icon-plus" viewBox="0 0 32 32"><g><line x1="16" x2="16" y1="7" y2="25"/><line x1="7" x2="25" y1="16" y2="16"/></g></svg>
+                <svg class="icon-minus" viewBox="0 0 32 32"><g><line x1="7" x2="25" y1="16" y2="16"/></g></svg>
+              </span>
+            </button>
+            <div
+              id="acc-panel-{{ block.id }}"
+              class="acc-panel"
+              role="region"
+              aria-labelledby="acc-header-{{ block.id }}"
+            >
+              {{ block.settings.content }}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    function init(root){
+      if(!root) return;
+      const single = {{ section.settings.single_open | json }};       // true: 常に1つだけ開く
+      const openFirst = {{ section.settings.open_first | json }};     // true: 最初の1つを初期オープン
+      const headers = Array.from(root.querySelectorAll('.acc-header'));
+
+      function setExpanded(header, expand){
+        const panel = document.getElementById(header.getAttribute('aria-controls'));
+        header.setAttribute('aria-expanded', expand ? 'true' : 'false');
+
+        if (expand) {
+          panel.classList.add('is-open');
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          // アニメ後に max-height を解除して可変コンテンツにも対応
+          setTimeout(()=>{ panel.style.maxHeight = 'none'; }, 400);
+        } else {
+          panel.classList.remove('is-open');
+          // 一旦固定してから 0 に
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          panel.getBoundingClientRect(); // reflow
+          panel.style.maxHeight = '0px';
+        }
+      }
+
+      function closeAll(except){
+        headers.forEach(h => { if(h !== except) setExpanded(h, false); });
+      }
+
+      // 初期状態
+      let openedOnce = false;
+      headers.forEach((h, idx) => {
+        const def = h.dataset.defaultOpen === 'true';
+        if (def) {
+          setExpanded(h, true);
+          openedOnce = true;
+        } else {
+          setExpanded(h, false);
+        }
+        // 初期 openFirst が有効で、まだ何も開いていなければ1つ目を開く
+        if (!openedOnce && openFirst && idx === 0) {
+          setExpanded(h, true);
+          openedOnce = true;
+        }
+      });
+
+      // クリックでトグル
+      headers.forEach(h => {
+        h.addEventListener('click', () => {
+          const expanded = h.getAttribute('aria-expanded') === 'true';
+          if (single && !expanded) closeAll(h);
+          setExpanded(h, !expanded);
+        });
+      });
+    }
+
+    const root = document.getElementById('accordion-{{ section.id }}');
+    document.addEventListener('DOMContentLoaded', ()=>init(root));
+    document.addEventListener('shopify:section:load', (e)=>{ if(e.target.contains(root)) init(root); });
+  })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "アコーディオン（FAQなど）",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "見出し", "default": "よくある質問" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "カラー（スキーム）", "default": "background-1" },
+
+    { "type": "checkbox", "id": "single_open", "label": "常に1つだけ開く（アコーディオン動作）", "default": true },
+    { "type": "checkbox", "id": "open_first", "label": "最初の1つを最初から開く", "default": false },
+
+    { "type": "color", "id": "header_bg", "label": "ヘッダー背景色", "default": "#000000" },
+    { "type": "color", "id": "header_fg", "label": "ヘッダー文字色", "default": "#ffffff" },
+    { "type": "color", "id": "icon_color", "label": "アイコン色（未設定なら文字色と同じ）" },
+
+    { "type": "range", "id": "gap", "label": "アイテム間の間隔(px)", "min": 0, "max": 40, "step": 1, "default": 10 },
+    { "type": "range", "id": "radius", "label": "角丸(px)", "min": 0, "max": 24, "step": 1, "default": 8 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "アコーディオン項目",
+      "settings": [
+        { "type": "text", "id": "title", "label": "質問（見出し）", "default": "質問タイトル" },
+        { "type": "richtext", "id": "content", "label": "回答（本文）", "default": "<p>ここに回答を入力します。</p>" },
+        { "type": "checkbox", "id": "default_open", "label": "この項目を最初から開く", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "アコーディオン（FAQなど）",
+      "blocks": [
+        { "type": "item", "settings": { "title": "送料はいくらになりますか。", "content": "<p>5,000円以上の購入で無料になります。5,000円未満は1,000円です。</p>" } },
+        { "type": "item", "settings": { "title": "発送日はいつになりますか。", "content": "<p>ご注文から3営業日以内に発送いたします。</p>" } },
+        { "type": "item", "settings": { "title": "返品はできますか。", "content": "<p>商品到着後14日以内に返品可能です。</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
